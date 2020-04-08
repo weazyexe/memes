@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#312F51</color>
-    <color name="colorPrimaryDark">#12102B</color>
-    <color name="colorAccent">#1EF0D7</color>
-    <color name="colorError">#FF575D</color>
+    <color name="colorBlue">#312F51</color>
+    <color name="colorBlueVariant">#474575</color>
+    <color name="colorDeepBlue">#12102B</color>
+    <color name="colorLightBlue">#1EF0D7</color>
+    <color name="colorRed">#FF575D</color>
     <color name="colorWhite">#FFF</color>
     <color name="colorLightGrey">#CCC</color>
-    <color name="colorPrimaryLight">#474575</color>
 </resources>
