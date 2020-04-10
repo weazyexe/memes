@@ -4,4 +4,7 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="sign_in">Войти</string>
+    <string name="password_length">Пароль должен содержать 6 символов</string>
+    <string name="field_can_not_be_empty">Поле не может быть пустым</string>
+    <string name="wrong_credentials">Вы ввели неверные данные. Попробуйте ещё раз</string>
 </resources>

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorLightBlue</item>
         <item name="colorPrimaryDark">@color/colorBlueVariant</item>
@@ -19,11 +19,14 @@
 
     <style name="TextField" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxBackgroundColor">@color/colorBlueVariant</item>
+        <item name="errorTextColor">@color/colorRed</item>
+        <item name="errorIconDrawable">@android:color/transparent</item>
     </style>
 
     <style name="TextField.Password" parent="TextField">
         <item name="passwordToggleEnabled">true</item>
         <item name="passwordToggleTint">?android:colorPrimary</item>
+        <item name="helperTextTextColor">@color/colorWhite</item>
     </style>
 
     <style name="Button.Primary" parent="Widget.MaterialComponents.Button">
