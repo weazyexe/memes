@@ -1,11 +1,16 @@
 package exe.weazy.memes.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import exe.weazy.memes.R
+import exe.weazy.memes.state.LoginState
 import exe.weazy.memes.util.showErrorSnackbar
 import exe.weazy.memes.util.useViewModel
 import exe.weazy.memes.viewmodel.LoginViewModel
@@ -26,6 +31,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initListeners() {
+        viewModel.state.observe(this, Observer {
+            setState(it)
+        })
+
         passwordEditText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 passwordEditTextLayout.helperText = getString(R.string.password_length)
@@ -43,10 +52,34 @@ class LoginActivity : AppCompatActivity() {
         }
 
         signInButton.setOnClickListener {
-            if (validate(passwordEditText.text.toString()) && validate(loginEditText.text.toString())) {
-                // sign in
+            val login = loginEditText.text.toString()
+            val password = passwordEditText.text.toString()
+
+            if (validate(password) && validate(login)) {
+                viewModel.signIn(login, password)
             } else {
+                viewModel.state.postValue(LoginState.Error())
+            }
+        }
+    }
+
+    private fun setState(state: LoginState) {
+        when(state) {
+            is LoginState.Default -> {
+                makeButtonLoading(false)
+            }
+            is LoginState.Loading -> {
+                makeButtonLoading(true)
+            }
+            is LoginState.Error -> {
+                makeButtonLoading(false)
                 showErrorSnackbar(R.string.wrong_credentials, rootViewLogin)
+            }
+            is LoginState.Success -> {
+                makeButtonLoading(false)
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
     }
@@ -60,4 +93,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validate(text: String) = text.isNotEmpty()
+
+    private fun makeButtonLoading(isLoading: Boolean) {
+        if (isLoading) {
+            signInButton.text = ""
+            loadingBar.isVisible = true
+        } else {
+            signInButton.text = getString(R.string.sign_in)
+            loadingBar.isVisible = false
+        }
+    }
 }

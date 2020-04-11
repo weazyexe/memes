@@ -12,7 +12,7 @@ class NetworkModule {
     @Provides
     fun provideRetrofit() : Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://demo2407529.mockable.io/")
+            .baseUrl("https://demo2407529.mockable.io")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()

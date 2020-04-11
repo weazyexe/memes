@@ -7,6 +7,6 @@ import retrofit2.http.POST
 
 interface NetworkService {
 
-    @POST
-    fun signIn(@Body credentials: Credentials)
+    @POST("/auth/login")
+    fun signIn(@Body credentials: Credentials) : Observable<AuthResponse>
 }

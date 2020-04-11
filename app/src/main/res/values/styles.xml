@@ -5,6 +5,7 @@
         <item name="colorAccent">@color/colorBlue</item>
 
         <item name="android:colorBackground">@color/colorBlue</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="colorOnBackground">@color/colorWhite</item>
         <item name="colorSurface">@color/colorBlue</item>
         <item name="colorOnSurface">@color/colorLightGrey</item>
