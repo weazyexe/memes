@@ -1,8 +1,9 @@
 package exe.weazy.memes.ui.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -11,12 +12,16 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import exe.weazy.memes.R
 import exe.weazy.memes.state.LoginState
+import exe.weazy.memes.util.PREFERENCES_FILENAME
+import exe.weazy.memes.util.saveUserData
 import exe.weazy.memes.util.showErrorSnackbar
 import exe.weazy.memes.util.useViewModel
 import exe.weazy.memes.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
+
+    lateinit var prefs: SharedPreferences
 
     private lateinit var viewModel: LoginViewModel
 
@@ -25,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        prefs = getSharedPreferences(PREFERENCES_FILENAME, Context.MODE_PRIVATE)
         viewModel = useViewModel(this, LoginViewModel::class.java)
 
         initListeners()
@@ -76,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
                 showErrorSnackbar(R.string.wrong_credentials, rootViewLogin)
             }
             is LoginState.Success -> {
-                makeButtonLoading(false)
+                saveUserData(prefs, state.token, state.userInfo)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
