@@ -39,17 +39,17 @@ class LoginActivity : AppCompatActivity() {
 
         loginEditText.addTextChangedListener {
             if (!viewModel.validateLogin(it.toString())) {
-                loginEditText.error = getString(R.string.field_can_not_be_empty)
+                loginEditTextLayout.error = getString(R.string.field_can_not_be_empty)
             } else {
-                loginEditText.error = ""
+                loginEditTextLayout.error = ""
             }
         }
 
         passwordEditText.addTextChangedListener {
             if (!viewModel.validatePassword(it.toString())) {
-                passwordEditText.error = getString(R.string.field_can_not_be_empty)
+                passwordEditTextLayout.error = getString(R.string.field_can_not_be_empty)
             } else {
-                passwordEditText.error = ""
+                passwordEditTextLayout.error = ""
             }
         }
 
