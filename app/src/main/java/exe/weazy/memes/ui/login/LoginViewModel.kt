@@ -1,4 +1,4 @@
-package exe.weazy.memes.viewmodel
+package exe.weazy.memes.ui.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

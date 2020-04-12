@@ -1,4 +1,4 @@
-package exe.weazy.memes.ui.activity
+package exe.weazy.memes.ui.login
 
 import android.content.Context
 import android.content.Intent
@@ -12,11 +12,11 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import exe.weazy.memes.R
 import exe.weazy.memes.state.LoginState
+import exe.weazy.memes.ui.main.MainActivity
 import exe.weazy.memes.util.PREFERENCES_FILENAME
 import exe.weazy.memes.util.saveUserData
 import exe.weazy.memes.util.showErrorSnackbar
 import exe.weazy.memes.util.useViewModel
-import exe.weazy.memes.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {

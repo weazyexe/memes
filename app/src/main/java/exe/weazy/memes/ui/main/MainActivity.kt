@@ -1,4 +1,4 @@
-package exe.weazy.memes.ui.activity
+package exe.weazy.memes.ui.main
 
 import android.content.Context
 import android.content.SharedPreferences
