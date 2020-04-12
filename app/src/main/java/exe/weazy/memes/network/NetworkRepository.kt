@@ -22,9 +22,11 @@ class NetworkRepository {
     }
 
     @SuppressLint("CheckResult")
-    fun signIn(login: String, password: String,
+    fun signIn(login: String,
+               password: String,
                onSuccess: (accessToken: String, userInfo: UserInfo?) -> Unit,
                onError: (t: Throwable) -> Unit) {
+
         service.signIn(Credentials(login, password))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
