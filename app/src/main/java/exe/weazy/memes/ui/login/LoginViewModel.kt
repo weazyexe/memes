@@ -9,10 +9,13 @@ import exe.weazy.memes.state.LoginState
 import exe.weazy.memes.storage.UserStorage
 import exe.weazy.memes.util.extensions.isValidLogin
 import exe.weazy.memes.util.extensions.isValidPassword
+import exe.weazy.memes.util.extensions.subscribe
+import io.reactivex.disposables.Disposable
 
 class LoginViewModel : ViewModel() {
 
     private val repository = NetworkRepository()
+    private lateinit var signInDisposable: Disposable
 
     val state = MutableLiveData(LoginState.DEFAULT)
     lateinit var userInfo: UserInfo
@@ -22,9 +25,12 @@ class LoginViewModel : ViewModel() {
         if (validateLogin(login) && validatePassword(password)) {
             state.postValue(LoginState.LOADING)
 
-            repository.signIn(login, password, { token, userInfo ->
-                this.userInfo = userInfo ?: UserInfo.Empty()
-                this.accessToken = token
+            if (::signInDisposable.isInitialized) {
+                signInDisposable.dispose()
+            }
+            signInDisposable = subscribe(repository.signIn(login, password), {
+                userInfo = it.userInfo?.convert() ?: UserInfo.empty()
+                accessToken = it.accessToken
                 state.postValue(LoginState.SUCCESS)
             }, {
                 state.postValue(LoginState.ERROR)
