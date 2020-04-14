@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorLightBlue</item>
-        <item name="colorPrimaryDark">@color/colorBlueVariant</item>
+        <item name="colorPrimaryDark">@color/colorDeepBlue</item>
         <item name="colorAccent">@color/colorBlue</item>
 
         <item name="android:colorBackground">@color/colorBlue</item>
