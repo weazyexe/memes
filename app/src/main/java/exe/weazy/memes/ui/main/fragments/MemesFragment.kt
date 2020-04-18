@@ -17,7 +17,6 @@ import exe.weazy.memes.ui.main.MainViewModel
 import exe.weazy.memes.util.extensions.showErrorSnackbar
 import exe.weazy.memes.util.extensions.useViewModel
 import exe.weazy.memes.util.handleToolbarInsets
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_memes.*
 
 class MemesFragment : Fragment() {
@@ -37,6 +36,14 @@ class MemesFragment : Fragment() {
 
         handleToolbarInsets(toolbarLayout)
         initObservers()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        swipeRefreshMemesLayout.setOnRefreshListener {
+            viewModel.fetchMemes()
+            swipeRefreshMemesLayout.isRefreshing = false
+        }
     }
 
     private fun initObservers() {
@@ -57,10 +64,10 @@ class MemesFragment : Fragment() {
         adapter = MemesAdapter(
             memes,
             View.OnClickListener {
-                Toast.makeText(requireContext(), "Like", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Like", Toast.LENGTH_SHORT).show()
             },
             View.OnClickListener {
-                Toast.makeText(requireContext(), "Share", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Share", Toast.LENGTH_SHORT).show()
             })
 
         memesRecyclerView.adapter = adapter
@@ -86,8 +93,13 @@ class MemesFragment : Fragment() {
                 } else {
                     errorTextView.isVisible = false
                     memesRecyclerView.isVisible = true
-                    activity?.showErrorSnackbar(R.string.memes_loading_error, rootViewMain)
                 }
+
+                val rootView = activity?.findViewById<ViewGroup>(R.id.rootViewMain)
+                if (rootView != null) {
+                    activity?.showErrorSnackbar(R.string.memes_error, rootView)
+                }
+
             }
 
             MemesState.SUCCESS, MemesState.DEFAULT -> {
