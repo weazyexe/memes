@@ -1,14 +1,14 @@
 package exe.weazy.memes.ui.main
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import exe.weazy.memes.R
+import exe.weazy.memes.ui.main.fragments.CreateMemeFragment
+import exe.weazy.memes.ui.main.fragments.MemesFragment
+import exe.weazy.memes.ui.main.fragments.ProfileFragment
+import exe.weazy.memes.util.extensions.handleBottomNavigationBarInsets
 import exe.weazy.memes.util.extensions.useViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -55,15 +55,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        rootViewMain.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-
-        val bottomNavBottomPadding = bottomNav.paddingBottom
-        ViewCompat.setOnApplyWindowInsetsListener(bottomNav) { view, insets ->
-            view.updatePadding(bottom = bottomNavBottomPadding + insets.systemWindowInsetBottom)
-            insets
-        }
-
+        handleBottomNavigationBarInsets(rootViewMain, bottomNav)
         viewModel = useViewModel(this, MainViewModel::class.java)
 
         bottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
