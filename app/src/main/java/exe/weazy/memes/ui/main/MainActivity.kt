@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import exe.weazy.memes.R
-import exe.weazy.memes.ui.main.fragments.CreateMemeFragment
-import exe.weazy.memes.ui.main.fragments.MemesFragment
-import exe.weazy.memes.ui.main.fragments.ProfileFragment
+import exe.weazy.memes.ui.main.create.CreateMemeFragment
+import exe.weazy.memes.ui.main.memes.MemesFragment
+import exe.weazy.memes.ui.main.profile.ProfileFragment
 import exe.weazy.memes.util.handleBottomNavigationBarInsets
 import exe.weazy.memes.util.extensions.useViewModel
 import kotlinx.android.synthetic.main.activity_main.*

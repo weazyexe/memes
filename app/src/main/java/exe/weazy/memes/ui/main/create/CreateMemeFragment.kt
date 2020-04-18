@@ -1,4 +1,4 @@
-package exe.weazy.memes.ui.main.fragments
+package exe.weazy.memes.ui.main.create
 
 import android.os.Bundle
 import android.view.LayoutInflater
