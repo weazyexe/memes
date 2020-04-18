@@ -77,14 +77,23 @@ class MemesFragment : Fragment() {
     private fun setState(state: MemesState) {
         when (state) {
             MemesState.LOADING -> {
-                progressBar.isVisible = true
-                memesRecyclerView.isVisible = false
+                if (viewModel.memes.value.isNullOrEmpty()) {
+                    noContentProgressBar.isVisible = true
+                    contentProgressBar.isVisible = false
+                    memesRecyclerView.isVisible = false
+                } else {
+                    noContentProgressBar.isVisible = false
+                    contentProgressBar.isVisible = true
+                    memesRecyclerView.isVisible = true
+                }
+
                 errorTextView.isVisible = false
                 emptyTextView.isVisible = false
             }
 
             MemesState.ERROR -> {
-                progressBar.isVisible = false
+                noContentProgressBar.isVisible = false
+                contentProgressBar.isVisible = false
                 emptyTextView.isVisible = false
 
                 if (viewModel.memes.value.isNullOrEmpty()) {
@@ -103,14 +112,16 @@ class MemesFragment : Fragment() {
             }
 
             MemesState.SUCCESS, MemesState.DEFAULT -> {
-                progressBar.isVisible = false
+                noContentProgressBar.isVisible = false
+                contentProgressBar.isVisible = false
                 memesRecyclerView.isVisible = true
                 errorTextView.isVisible = false
                 emptyTextView.isVisible = false
             }
 
             MemesState.EMPTY -> {
-                progressBar.isVisible = false
+                noContentProgressBar.isVisible = false
+                contentProgressBar.isVisible = false
                 memesRecyclerView.isVisible = false
                 errorTextView.isVisible = false
                 emptyTextView.isVisible = true

@@ -8,4 +8,5 @@
     <color name="colorRed">#FF575D</color>
     <color name="colorWhite">#FFF</color>
     <color name="colorLightGrey">#CCC</color>
+    <color name="colorBlackTransparent">#57000000</color>
 </resources>
