@@ -8,14 +8,13 @@ import javax.inject.Inject
 class NetworkRepository {
 
     @Inject
-    lateinit var retrofit: Retrofit
-
-    private val service: NetworkService
+    lateinit var service: NetworkService
 
     init {
         App.getComponent().injectRepository(this)
-        service = retrofit.create(NetworkService::class.java)
     }
 
     fun signIn(login: String, password: String) = service.signIn(LoginPasswordRequest(login, password))
+
+    fun fetchMemes() = service.fetchMemes()
 }
