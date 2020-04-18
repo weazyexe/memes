@@ -1,6 +1,7 @@
 package exe.weazy.memes.ui.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -8,7 +9,7 @@ import exe.weazy.memes.R
 import exe.weazy.memes.ui.main.fragments.CreateMemeFragment
 import exe.weazy.memes.ui.main.fragments.MemesFragment
 import exe.weazy.memes.ui.main.fragments.ProfileFragment
-import exe.weazy.memes.util.extensions.handleBottomNavigationBarInsets
+import exe.weazy.memes.util.handleBottomNavigationBarInsets
 import exe.weazy.memes.util.extensions.useViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -55,7 +56,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        handleBottomNavigationBarInsets(rootViewMain, bottomNav)
+        rootViewMain.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
+        handleBottomNavigationBarInsets(bottomNav)
         viewModel = useViewModel(this, MainViewModel::class.java)
 
         bottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -68,9 +72,9 @@ class MainActivity : AppCompatActivity() {
         createMemeFragment = CreateMemeFragment()
         profileFragment = ProfileFragment()
 
-        supportFragmentManager.beginTransaction().add(R.id.fragmentLayout, memesFragment).hide(memesFragment).commit()
+        supportFragmentManager.beginTransaction().add(R.id.fragmentLayout, memesFragment).commit()
         supportFragmentManager.beginTransaction().add(R.id.fragmentLayout, createMemeFragment).hide(createMemeFragment).commit()
-        supportFragmentManager.beginTransaction().add(R.id.fragmentLayout, profileFragment).commit()
+        supportFragmentManager.beginTransaction().add(R.id.fragmentLayout, profileFragment).hide(profileFragment).commit()
 
         bottomNav.selectedItemId = R.id.memesButton
         active = memesFragment
