@@ -8,11 +8,16 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import exe.weazy.memes.R
 import exe.weazy.memes.entity.Meme
+import exe.weazy.memes.ui.main.MainViewModel
+import exe.weazy.memes.util.extensions.useViewModel
 import exe.weazy.memes.util.handleToolbarInsets
 import kotlinx.android.synthetic.main.activity_meme.*
 import org.ocpsoft.prettytime.PrettyTime
 
 class MemeActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: MainViewModel
+    private lateinit var meme: Meme
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +27,14 @@ class MemeActivity : AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         handleToolbarInsets(memeToolbarLayout)
+
+        viewModel = useViewModel(this, MainViewModel::class.java)
+
         initListeners()
 
         val meme = intent.getParcelableExtra<Meme>("meme")
         if (meme != null) {
+            this.meme = meme
             showMemeInfo(meme)
         }
     }
@@ -40,7 +49,10 @@ class MemeActivity : AppCompatActivity() {
         }
 
         favoriteButton.setOnClickListener {
-            Toast.makeText(this, "Like", Toast.LENGTH_SHORT).show()
+            viewModel.likeMeme(meme)
+            showMemeInfo(Meme(meme.id, meme.title, meme.description,
+                !meme.isFavorite, meme.createDate, meme.photoUrl)
+            )
         }
     }
 

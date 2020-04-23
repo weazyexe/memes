@@ -14,22 +14,14 @@ import exe.weazy.memes.entity.Meme
 
 class MemesAdapter(
     var memes: List<Meme>,
-    private val onFavoriteClick: View.OnClickListener,
-    private val onShareClick: View.OnClickListener,
-    private val onItemClick: View.OnClickListener
+    private val onFavoriteClick: (meme: Meme) -> Unit,
+    private val onShareClick: (meme: Meme) -> Unit,
+    private val onItemClick: (meme: Meme) -> Unit
 ) : RecyclerView.Adapter<MemesAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.view_meme, parent, false)
-
-        val favoriteButton = view.findViewById<ImageButton>(R.id.favoriteButton)
-        val shareButton = view.findViewById<ImageButton>(R.id.shareButton)
-
-        view.setOnClickListener(onItemClick)
-        favoriteButton.setOnClickListener(onFavoriteClick)
-        shareButton.setOnClickListener(onShareClick)
-
         return Holder(view)
     }
 
@@ -41,7 +33,6 @@ class MemesAdapter(
 
     fun updateMemes(memes: List<Meme>) {
         this.memes = memes.toList()
-        notifyDataSetChanged()
     }
 
     inner class Holder(view: View): RecyclerView.ViewHolder(view) {
@@ -49,8 +40,11 @@ class MemesAdapter(
         private var memeImageView = view.findViewById<ImageView>(R.id.memeImageView)
         private var memeTitleTextView = view.findViewById<TextView>(R.id.memeTitleTextView)
         private var favoriteButton = view.findViewById<ImageButton>(R.id.favoriteButton)
+        private var shareButton = view.findViewById<ImageButton>(R.id.shareButton)
 
         fun bind(meme: Meme) {
+            initListeners(meme)
+
             Glide
                 .with(memeImageView)
                 .load(meme.photoUrl)
@@ -67,6 +61,20 @@ class MemesAdapter(
             favoriteButton.setImageDrawable(
                 ContextCompat.getDrawable(favoriteButton.context, favoriteDrawable)
             )
+        }
+
+        private fun initListeners(meme: Meme) {
+            (memeImageView.parent as View).setOnClickListener {
+                onItemClick(meme)
+            }
+
+            favoriteButton.setOnClickListener {
+                onFavoriteClick(meme)
+            }
+
+            shareButton.setOnClickListener {
+                onShareClick(meme)
+            }
         }
     }
 }
