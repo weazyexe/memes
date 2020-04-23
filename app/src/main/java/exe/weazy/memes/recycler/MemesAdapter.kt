@@ -15,7 +15,8 @@ import exe.weazy.memes.entity.Meme
 class MemesAdapter(
     var memes: List<Meme>,
     private val onFavoriteClick: View.OnClickListener,
-    private val onShareClick: View.OnClickListener
+    private val onShareClick: View.OnClickListener,
+    private val onItemClick: View.OnClickListener
 ) : RecyclerView.Adapter<MemesAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -25,6 +26,7 @@ class MemesAdapter(
         val favoriteButton = view.findViewById<ImageButton>(R.id.favoriteButton)
         val shareButton = view.findViewById<ImageButton>(R.id.shareButton)
 
+        view.setOnClickListener(onItemClick)
         favoriteButton.setOnClickListener(onFavoriteClick)
         shareButton.setOnClickListener(onShareClick)
 

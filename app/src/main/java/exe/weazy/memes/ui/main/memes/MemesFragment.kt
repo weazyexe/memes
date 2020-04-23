@@ -1,10 +1,15 @@
 package exe.weazy.memes.ui.main.memes
 
+import android.app.Activity
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -17,6 +22,7 @@ import exe.weazy.memes.util.extensions.showErrorSnackbar
 import exe.weazy.memes.util.extensions.useViewModel
 import exe.weazy.memes.util.handleToolbarInsets
 import kotlinx.android.synthetic.main.fragment_memes.*
+import kotlinx.android.synthetic.main.view_meme.*
 
 class MemesFragment : Fragment() {
 
@@ -67,7 +73,14 @@ class MemesFragment : Fragment() {
             },
             View.OnClickListener {
                 Toast.makeText(requireContext(), "Share", Toast.LENGTH_SHORT).show()
-            })
+            },
+            View.OnClickListener {
+                val position = memesRecyclerView.getChildAdapterPosition(it as View)
+                val meme = adapter.memes[position]
+
+                openMemeActivity(meme)
+            }
+        )
 
         memesRecyclerView.adapter = adapter
         memesRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -126,5 +139,11 @@ class MemesFragment : Fragment() {
                 emptyTextView.isVisible = true
             }
         }
+    }
+
+    private fun openMemeActivity(meme: Meme) {
+        val intent = Intent(activity, MemeActivity::class.java)
+        intent.putExtra("meme", meme)
+        startActivity(intent)
     }
 }
