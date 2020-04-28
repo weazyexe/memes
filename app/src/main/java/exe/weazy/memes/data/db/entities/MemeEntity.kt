@@ -1,4 +1,4 @@
-package exe.weazy.memes.repository.db.entities
+package exe.weazy.memes.data.db.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

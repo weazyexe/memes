@@ -1,8 +1,8 @@
-package exe.weazy.memes.repository.network
+package exe.weazy.memes.data.network
 
-import exe.weazy.memes.repository.network.requests.LoginPasswordRequest
-import exe.weazy.memes.repository.network.responses.AuthResponse
-import exe.weazy.memes.repository.network.responses.MemesResponse
+import exe.weazy.memes.data.network.requests.LoginPasswordRequest
+import exe.weazy.memes.data.network.responses.AuthResponse
+import exe.weazy.memes.data.network.responses.MemesResponse
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.GET

@@ -1,6 +1,6 @@
 package exe.weazy.memes.model
 
-import exe.weazy.memes.repository.db.entities.MemeEntity
+import exe.weazy.memes.data.db.entities.MemeEntity
 import java.util.*
 
 data class Meme(

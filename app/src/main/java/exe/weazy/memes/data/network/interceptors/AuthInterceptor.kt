@@ -1,6 +1,6 @@
-package exe.weazy.memes.repository.network.interceptors
+package exe.weazy.memes.data.network.interceptors
 
-import exe.weazy.memes.storage.UserStorage
+import exe.weazy.memes.data.storage.UserStorage
 import okhttp3.Interceptor
 import okhttp3.Response
 

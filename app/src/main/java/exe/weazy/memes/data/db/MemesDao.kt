@@ -1,7 +1,7 @@
-package exe.weazy.memes.repository.db
+package exe.weazy.memes.data.db
 
 import androidx.room.*
-import exe.weazy.memes.repository.db.entities.MemeEntity
+import exe.weazy.memes.data.db.entities.MemeEntity
 import io.reactivex.Observable
 
 @Dao

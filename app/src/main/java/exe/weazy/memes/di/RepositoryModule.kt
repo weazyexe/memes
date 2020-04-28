@@ -2,7 +2,7 @@ package exe.weazy.memes.di
 
 import dagger.Module
 import dagger.Provides
-import exe.weazy.memes.repository.MemesRepository
+import exe.weazy.memes.data.MemesRepository
 import javax.inject.Singleton
 
 @Module

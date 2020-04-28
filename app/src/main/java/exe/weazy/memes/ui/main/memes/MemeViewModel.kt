@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import exe.weazy.memes.di.App
 import exe.weazy.memes.model.Meme
-import exe.weazy.memes.repository.MemesRepository
+import exe.weazy.memes.data.MemesRepository
 import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.util.extensions.subscribe
 import javax.inject.Inject

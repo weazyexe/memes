@@ -1,4 +1,4 @@
-package exe.weazy.memes.repository.network.responses
+package exe.weazy.memes.data.network.responses
 
 import com.google.gson.annotations.SerializedName
 import exe.weazy.memes.model.Meme

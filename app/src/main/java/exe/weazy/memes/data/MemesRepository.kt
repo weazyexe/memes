@@ -1,11 +1,11 @@
-package exe.weazy.memes.repository
+package exe.weazy.memes.data
 
-import exe.weazy.memes.repository.db.MemesDao
-import exe.weazy.memes.repository.db.entities.MemeEntity
+import exe.weazy.memes.data.db.MemesDao
+import exe.weazy.memes.data.db.entities.MemeEntity
 import exe.weazy.memes.di.App
 import exe.weazy.memes.model.Meme
-import exe.weazy.memes.repository.network.NetworkService
-import exe.weazy.memes.repository.network.responses.MemesResponse
+import exe.weazy.memes.data.network.NetworkService
+import exe.weazy.memes.data.network.responses.MemesResponse
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import java.util.*
