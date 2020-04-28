@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorLightBlue</item>
-        <item name="colorPrimaryDark">@color/colorBlueVariant</item>
+        <item name="colorPrimaryDark">@color/colorDeepBlue</item>
         <item name="colorAccent">@color/colorBlue</item>
 
         <item name="android:colorBackground">@color/colorBlue</item>
@@ -33,6 +33,19 @@
     <style name="Button.Primary" parent="Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">?android:colorPrimary</item>
         <item name="android:textColor">?android:colorAccent</item>
+    </style>
+
+    <style name="MemeCard" parent="CardView">
+        <item name="cardBackgroundColor">?android:colorAccent</item>
+        <item name="cardElevation">0dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <style name="MemeCard.Title">
+        <item name="fontWeight">700</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:maxLines">1</item>
     </style>
 
 </resources>

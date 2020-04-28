@@ -7,7 +7,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import exe.weazy.memes.R
-import exe.weazy.memes.state.LoginState
+import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.ui.main.MainActivity
 import exe.weazy.memes.util.extensions.showErrorSnackbar
 import exe.weazy.memes.util.extensions.useViewModel
@@ -67,19 +67,19 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun setState(state: LoginState) {
+    private fun setState(state: ScreenState) {
         when(state) {
-            LoginState.DEFAULT -> {
+            ScreenState.DEFAULT, ScreenState.EMPTY -> {
                 makeButtonLoading(false)
             }
-            LoginState.LOADING -> {
+            ScreenState.LOADING -> {
                 makeButtonLoading(true)
             }
-            LoginState.ERROR -> {
+            ScreenState.ERROR -> {
                 makeButtonLoading(false)
                 showErrorSnackbar(R.string.wrong_credentials, rootViewLogin)
             }
-            LoginState.SUCCESS -> {
+            ScreenState.SUCCESS -> {
                 viewModel.let {
                     it.saveUserData(it.userInfo, it.accessToken, this)
                 }

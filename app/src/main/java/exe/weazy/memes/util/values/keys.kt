@@ -9,3 +9,5 @@ const val USER_LAST_NAME_KEY = "user_last_name"
 const val USER_DESCRIPTION_KEY = "user_description"
 
 const val ACCESS_TOKEN_KEY = "access_token"
+
+const val MEME_ID = "meme_id"
