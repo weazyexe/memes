@@ -1,7 +1,7 @@
-package exe.weazy.memes.network.responses
+package exe.weazy.memes.repository.network.responses
 
 import com.google.gson.annotations.SerializedName
-import exe.weazy.memes.entity.Meme
+import exe.weazy.memes.model.Meme
 import java.util.*
 
 data class MemesResponse(

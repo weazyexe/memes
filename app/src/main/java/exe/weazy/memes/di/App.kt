@@ -16,6 +16,7 @@ class App : Application() {
         component = DaggerAppComponent.builder()
             .networkModule(NetworkModule(applicationContext))
             .databaseModule(DatabaseModule(applicationContext))
+            .repositoryModule(RepositoryModule())
             .build()
     }
 }

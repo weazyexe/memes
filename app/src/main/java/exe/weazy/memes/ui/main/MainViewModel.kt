@@ -3,20 +3,25 @@ package exe.weazy.memes.ui.main
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import exe.weazy.memes.entity.Meme
-import exe.weazy.memes.network.LocalRepository
-import exe.weazy.memes.network.NetworkRepository
-import exe.weazy.memes.state.MemesState
+import exe.weazy.memes.di.App
+import exe.weazy.memes.model.Meme
+import exe.weazy.memes.repository.MemesRepository
+import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.storage.UserStorage
 import exe.weazy.memes.util.extensions.subscribe
+import javax.inject.Inject
 
 class MainViewModel: ViewModel() {
 
-    private val networkRepository = NetworkRepository()
-    private val localRepository = LocalRepository()
+    @Inject
+    lateinit var memesRepository: MemesRepository
 
     val memes = MutableLiveData<List<Meme>>(listOf())
-    val memesState = MutableLiveData<MemesState>(MemesState.DEFAULT)
+    val memesState = MutableLiveData<ScreenState>(ScreenState.DEFAULT)
+
+    init {
+        App.getComponent().injectMainViewModel(this)
+    }
 
     fun getUserToken(context: Context): String {
         val userStorage = UserStorage(context)
@@ -24,52 +29,30 @@ class MainViewModel: ViewModel() {
     }
 
     fun fetchMemes() {
-        memesState.postValue(MemesState.LOADING)
+        memesState.postValue(ScreenState.LOADING)
 
-
-        val observable = networkRepository.fetchMemes()
-            .map { response -> response.map { it.convert() } }
-            .map { memes ->
-                memes.map { meme ->
-                    val memesFromDb = localRepository.fetchMemes()
-
-                    // Если лайк у мема сохранен локально, отображаем его
-                    if (memesFromDb.any { meme.id == it.id && meme.isFavorite != it.isFavorite }) {
-                        Meme(meme.id, meme.title, meme.description, !meme.isFavorite, meme.createDate, meme.photoUrl)
-                    } else {
-                        meme
-                    }
-                }
-            }
-
-        subscribe(observable, { memes ->
+        subscribe(memesRepository.fetch(), { memes ->
             this.memes.postValue(memes)
-            localRepository.saveMemes(memes)
+            memesRepository.save(memes)
 
             if (memes.isEmpty()) {
-                memesState.postValue(MemesState.EMPTY)
+                memesState.postValue(ScreenState.EMPTY)
             } else {
-                memesState.postValue(MemesState.SUCCESS)
+                memesState.postValue(ScreenState.SUCCESS)
             }
         }, {
-            memesState.postValue(MemesState.ERROR)
+            memesState.postValue(ScreenState.ERROR)
         })
     }
 
-    fun likeMeme(meme: Meme) {
-        var memes = this.memes.value?.toList()
-
-        if (!memes.isNullOrEmpty()) {
-            memes = memes.map {
-                if (it.id == meme.id) {
-                    Meme(meme.id, meme.title, meme.description, !meme.isFavorite, meme.createDate, meme.photoUrl)
-                } else {
-                    it
-                }
-            }
-
-            localRepository.likeMeme(meme)
-            this.memes.postValue(memes)
+    fun refreshMemes() {
+        if (memesState.value == ScreenState.SUCCESS || memesState.value == ScreenState.EMPTY) {
+            memes.postValue(memesRepository.memes)
         }
+    }
+
+    fun likeMeme(meme: Meme) {
+        memesRepository.like(meme)
+        this.memes.postValue(memesRepository.memes)
     }
 }

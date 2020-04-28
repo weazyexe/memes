@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import exe.weazy.memes.db.AppDatabase
-import exe.weazy.memes.db.MemesDao
+import exe.weazy.memes.repository.db.AppDatabase
+import exe.weazy.memes.repository.db.MemesDao
 
 @Module
 class DatabaseModule(private val context: Context) {

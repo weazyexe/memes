@@ -3,8 +3,8 @@ package exe.weazy.memes.di
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import exe.weazy.memes.network.NetworkService
-import exe.weazy.memes.network.interceptors.AuthInterceptor
+import exe.weazy.memes.repository.network.NetworkService
+import exe.weazy.memes.repository.network.interceptors.AuthInterceptor
 import exe.weazy.memes.storage.UserStorage
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -16,10 +16,10 @@ class NetworkModule(private val context: Context) {
 
     @Provides
     fun provideNetworkService() : NetworkService {
-        val accessToken = UserStorage(context).getAccessToken()
+        val storage = UserStorage(context)
 
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(accessToken))
+            .addInterceptor(AuthInterceptor(storage))
             .build()
 
         val retrofit = Retrofit.Builder()

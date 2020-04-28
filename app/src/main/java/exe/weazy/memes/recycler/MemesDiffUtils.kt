@@ -1,7 +1,7 @@
 package exe.weazy.memes.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import exe.weazy.memes.entity.Meme
+import exe.weazy.memes.model.Meme
 
 class MemesDiffUtils(private val oldMemes: List<Meme>, private val newMemes: List<Meme>)
     : DiffUtil.Callback() {

@@ -1,5 +1,5 @@
 package exe.weazy.memes.state
 
-enum class MemesState {
+enum class ScreenState {
     DEFAULT, LOADING, SUCCESS, EMPTY, ERROR
 }

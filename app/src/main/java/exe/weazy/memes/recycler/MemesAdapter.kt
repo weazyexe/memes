@@ -7,10 +7,11 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import exe.weazy.memes.R
-import exe.weazy.memes.entity.Meme
+import exe.weazy.memes.model.Meme
 
 class MemesAdapter(
     var memes: List<Meme>,
@@ -32,6 +33,8 @@ class MemesAdapter(
     }
 
     fun updateMemes(memes: List<Meme>) {
+        val diffResult = DiffUtil.calculateDiff(MemesDiffUtils(this.memes, memes))
+        diffResult.dispatchUpdatesTo(this)
         this.memes = memes.toList()
     }
 

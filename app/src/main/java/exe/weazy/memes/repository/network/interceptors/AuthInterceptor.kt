@@ -1,15 +1,16 @@
-package exe.weazy.memes.network.interceptors
+package exe.weazy.memes.repository.network.interceptors
 
+import exe.weazy.memes.storage.UserStorage
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthInterceptor(private val accessToken: String) : Interceptor {
+class AuthInterceptor(private val storage: UserStorage) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 
         val headers = originalRequest.headers().newBuilder()
-            .add("Authorization", accessToken)
+            .add("Authorization", storage.getAccessToken())
             .build()
 
         val newRequest = originalRequest.newBuilder()

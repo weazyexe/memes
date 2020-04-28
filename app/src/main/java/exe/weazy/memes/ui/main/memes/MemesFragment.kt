@@ -9,17 +9,16 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import exe.weazy.memes.R
-import exe.weazy.memes.entity.Meme
+import exe.weazy.memes.model.Meme
 import exe.weazy.memes.recycler.MemesAdapter
-import exe.weazy.memes.recycler.MemesDiffUtils
-import exe.weazy.memes.state.MemesState
+import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.ui.main.MainViewModel
 import exe.weazy.memes.util.extensions.showErrorSnackbar
 import exe.weazy.memes.util.extensions.useViewModel
 import exe.weazy.memes.util.handleToolbarInsets
+import exe.weazy.memes.util.values.MEME_ID
 import kotlinx.android.synthetic.main.fragment_memes.*
 
 
@@ -43,6 +42,11 @@ class MemesFragment : Fragment() {
         initListeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshMemes()
+    }
+
     private fun initListeners() {
         swipeRefreshMemesLayout.setOnRefreshListener {
             viewModel.fetchMemes()
@@ -57,8 +61,6 @@ class MemesFragment : Fragment() {
 
         viewModel.memes.observe(viewLifecycleOwner, Observer {  memes ->
             if (::adapter.isInitialized) {
-                val diffResult = DiffUtil.calculateDiff(MemesDiffUtils(adapter.memes, memes))
-                diffResult.dispatchUpdatesTo(adapter)
                 adapter.updateMemes(memes)
             } else {
                 initAdapter(memes)
@@ -79,9 +81,9 @@ class MemesFragment : Fragment() {
         memesRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
     }
 
-    private fun setState(state: MemesState) {
+    private fun setState(state: ScreenState) {
         when (state) {
-            MemesState.LOADING -> {
+            ScreenState.LOADING -> {
                 if (viewModel.memes.value.isNullOrEmpty()) {
                     noContentProgressBar.isVisible = true
                     contentProgressBar.isVisible = false
@@ -96,7 +98,7 @@ class MemesFragment : Fragment() {
                 emptyTextView.isVisible = false
             }
 
-            MemesState.ERROR -> {
+            ScreenState.ERROR -> {
                 noContentProgressBar.isVisible = false
                 contentProgressBar.isVisible = false
                 emptyTextView.isVisible = false
@@ -116,7 +118,7 @@ class MemesFragment : Fragment() {
 
             }
 
-            MemesState.SUCCESS, MemesState.DEFAULT -> {
+            ScreenState.SUCCESS, ScreenState.DEFAULT -> {
                 noContentProgressBar.isVisible = false
                 contentProgressBar.isVisible = false
                 memesRecyclerView.isVisible = true
@@ -124,7 +126,7 @@ class MemesFragment : Fragment() {
                 emptyTextView.isVisible = false
             }
 
-            MemesState.EMPTY -> {
+            ScreenState.EMPTY -> {
                 noContentProgressBar.isVisible = false
                 contentProgressBar.isVisible = false
                 memesRecyclerView.isVisible = false
@@ -135,8 +137,8 @@ class MemesFragment : Fragment() {
     }
 
     private fun openMemeActivity(meme: Meme) {
-        val intent = Intent(activity, MemeFragment::class.java)
-        intent.putExtra("meme", meme)
+        val intent = Intent(activity, MemeActivity::class.java)
+        intent.putExtra(MEME_ID, meme.id)
         startActivity(intent)
     }
 }

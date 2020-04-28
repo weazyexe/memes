@@ -3,7 +3,7 @@ package exe.weazy.memes.storage
 import android.content.Context
 import exe.weazy.memes.storage.PreferenceHelper.get
 import exe.weazy.memes.storage.PreferenceHelper.set
-import exe.weazy.memes.entity.UserInfo
+import exe.weazy.memes.model.UserInfo
 import exe.weazy.memes.util.values.*
 
 class UserStorage(context: Context) {

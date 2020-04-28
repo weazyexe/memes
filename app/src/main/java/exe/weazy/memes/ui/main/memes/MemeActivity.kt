@@ -5,19 +5,21 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import exe.weazy.memes.R
-import exe.weazy.memes.entity.Meme
-import exe.weazy.memes.ui.main.MainViewModel
+import exe.weazy.memes.model.Meme
+import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.util.extensions.useViewModel
 import exe.weazy.memes.util.handleToolbarInsets
+import exe.weazy.memes.util.values.MEME_ID
 import kotlinx.android.synthetic.main.activity_meme.*
 import org.ocpsoft.prettytime.PrettyTime
 
 class MemeActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
-    private lateinit var meme: Meme
+    private lateinit var viewModel: MemeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,15 +30,13 @@ class MemeActivity : AppCompatActivity() {
 
         handleToolbarInsets(memeToolbarLayout)
 
-        viewModel = useViewModel(this, MainViewModel::class.java)
+        viewModel = useViewModel(this, MemeViewModel::class.java)
+
+        val memeId = intent.getLongExtra(MEME_ID, 0)
+        viewModel.getMeme(memeId)
 
         initListeners()
-
-        val meme = intent.getParcelableExtra<Meme>("meme")
-        if (meme != null) {
-            this.meme = meme
-            showMemeInfo(meme)
-        }
+        initObservers()
     }
 
     private fun initListeners() {
@@ -49,10 +49,37 @@ class MemeActivity : AppCompatActivity() {
         }
 
         favoriteButton.setOnClickListener {
-            viewModel.likeMeme(meme)
-            showMemeInfo(Meme(meme.id, meme.title, meme.description,
-                !meme.isFavorite, meme.createDate, meme.photoUrl)
-            )
+            viewModel.likeMeme()
+        }
+    }
+
+    private fun initObservers() {
+        viewModel.state.observe(this, Observer {
+            setState(it)
+        })
+
+        viewModel.meme.observe(this, Observer {
+            showMemeInfo(it)
+        })
+    }
+
+    private fun setState(state: ScreenState) {
+        when (state) {
+            ScreenState.SUCCESS -> {
+                loadingLayout.isVisible = false
+                memeLayout.isVisible = true
+                errorLayout.isVisible = false
+            }
+            ScreenState.ERROR, ScreenState.DEFAULT, ScreenState.EMPTY -> {
+                loadingLayout.isVisible = false
+                memeLayout.isVisible = false
+                errorLayout.isVisible = true
+            }
+            ScreenState.LOADING -> {
+                loadingLayout.isVisible = true
+                memeLayout.isVisible = false
+                errorLayout.isVisible = false
+            }
         }
     }
 

@@ -1,7 +1,7 @@
-package exe.weazy.memes.network.responses
+package exe.weazy.memes.repository.network.responses
 
 import com.google.gson.annotations.SerializedName
-import exe.weazy.memes.entity.UserInfo
+import exe.weazy.memes.model.UserInfo
 
 data class UserInfoResponse(
     val id: Int,
