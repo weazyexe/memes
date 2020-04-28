@@ -1,9 +1,9 @@
-package exe.weazy.memes.storage
+package exe.weazy.memes.data.storage
 
 import android.content.Context
-import exe.weazy.memes.storage.PreferenceHelper.get
-import exe.weazy.memes.storage.PreferenceHelper.set
-import exe.weazy.memes.entity.UserInfo
+import exe.weazy.memes.data.storage.PreferenceHelper.get
+import exe.weazy.memes.data.storage.PreferenceHelper.set
+import exe.weazy.memes.model.UserInfo
 import exe.weazy.memes.util.values.*
 
 class UserStorage(context: Context) {

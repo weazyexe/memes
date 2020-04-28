@@ -1,4 +1,4 @@
-package exe.weazy.memes.network.responses
+package exe.weazy.memes.data.network.responses
 
 data class AuthResponse(
     val accessToken: String,

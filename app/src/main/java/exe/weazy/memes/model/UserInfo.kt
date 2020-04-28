@@ -1,4 +1,4 @@
-package exe.weazy.memes.entity
+package exe.weazy.memes.model
 
 import exe.weazy.memes.util.values.EMPTY_INT
 import exe.weazy.memes.util.values.EMPTY_STRING
