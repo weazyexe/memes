@@ -16,7 +16,7 @@ import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.ui.main.MainViewModel
 import exe.weazy.memes.util.extensions.showErrorSnackbar
 import exe.weazy.memes.util.extensions.useViewModel
-import exe.weazy.memes.util.handleToolbarInsets
+import exe.weazy.memes.util.handleTopInsets
 import exe.weazy.memes.util.share
 import exe.weazy.memes.util.values.MEME_ID
 import kotlinx.android.synthetic.main.fragment_memes.*
@@ -41,7 +41,7 @@ class MemesFragment : Fragment() {
         viewModel = useViewModel(requireActivity(), MainViewModel::class.java)
         viewModel.fetchMemes()
 
-        handleToolbarInsets(toolbarLayout)
+        handleTopInsets(toolbarLayout)
         initObservers()
         initListeners()
     }

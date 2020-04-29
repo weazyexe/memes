@@ -9,7 +9,8 @@ import androidx.lifecycle.Observer
 import exe.weazy.memes.R
 import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.util.extensions.useViewModel
-import exe.weazy.memes.util.handleToolbarInsets
+import exe.weazy.memes.util.handleBottomInsets
+import exe.weazy.memes.util.handleTopInsets
 import kotlinx.android.synthetic.main.activity_create_meme.*
 
 class CreateMemeActivity : AppCompatActivity() {
@@ -25,7 +26,8 @@ class CreateMemeActivity : AppCompatActivity() {
 
         viewModel = useViewModel(this, CreateMemeViewModel::class.java)
 
-        handleToolbarInsets(toolbarLayout)
+        handleTopInsets(toolbarLayout)
+        handleBottomInsets(chooseImageButton)
 
         initListeners()
         initObservers()

@@ -18,7 +18,7 @@ import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.ui.main.memes.MemeActivity
 import exe.weazy.memes.ui.splash.SplashActivity
 import exe.weazy.memes.util.extensions.useViewModel
-import exe.weazy.memes.util.handleToolbarInsets
+import exe.weazy.memes.util.handleTopInsets
 import exe.weazy.memes.util.share
 import exe.weazy.memes.util.values.MEME_ID
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -37,7 +37,7 @@ class ProfileFragment: Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = useViewModel(this, ProfileViewModel::class.java)
-        handleToolbarInsets(profileToolbarLayout)
+        handleTopInsets(profileToolbarLayout)
 
         viewModel.getLocalMemes()
         viewModel.getUserInfo()

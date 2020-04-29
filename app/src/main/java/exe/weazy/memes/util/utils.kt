@@ -2,28 +2,42 @@ package exe.weazy.memes.util
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.view.View
 import androidx.core.view.ViewCompat
+import androidx.core.view.marginBottom
 import androidx.core.view.updatePadding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import exe.weazy.memes.model.Meme
+import exe.weazy.memes.util.extensions.updateMargin
 
-fun handleBottomNavigationBarInsets(bottomNav: BottomNavigationView) {
-    val bottomNavBottomPadding = bottomNav.paddingBottom
-    ViewCompat.setOnApplyWindowInsetsListener(bottomNav) { view, insets ->
-        view.updatePadding(bottom = bottomNavBottomPadding + insets.systemWindowInsetBottom)
-        insets
+fun handleBottomInsets(vararg views: View) {
+    views.forEach { view ->
+        val padding = view.paddingBottom
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
+            if (v is FloatingActionButton && Build.VERSION_CODES.Q <= Build.VERSION.SDK_INT) {
+                val tappable = insets.tappableElementInsets
+                v.updateMargin(
+                    bottom = tappable.bottom + v.marginBottom
+                )
+            } else {
+                v.updatePadding(bottom = padding + insets.systemWindowInsetBottom)
+            }
+
+            insets
+        }
     }
 }
 
-fun handleToolbarInsets(toolbar: View) {
-    val toolbarPaddingTop = toolbar.paddingTop
-
-    ViewCompat.setOnApplyWindowInsetsListener(toolbar) { view, insets ->
-        view.updatePadding(
-            top = toolbarPaddingTop + insets.systemWindowInsetTop
-        )
-        insets
+fun handleTopInsets(vararg views: View) {
+    views.forEach { view ->
+        val padding = view.paddingTop
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
+            v.updatePadding(
+                top = padding + insets.systemWindowInsetTop
+            )
+            insets
+        }
     }
 }
 

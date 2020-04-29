@@ -117,14 +117,6 @@
 
         </ScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/chooseImageButton"
-            android:src="@drawable/ic_image_blue_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"/>
-
     </FrameLayout>
 
     <TextView
@@ -148,5 +140,13 @@
             android:indeterminateTint="?android:colorPrimary"/>
 
     </FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/chooseImageButton"
+        android:src="@drawable/ic_image_blue_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

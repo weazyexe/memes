@@ -11,7 +11,7 @@ import exe.weazy.memes.ui.main.create.CreateMemeActivity
 import exe.weazy.memes.ui.main.memes.MemesFragment
 import exe.weazy.memes.ui.main.profile.ProfileFragment
 import exe.weazy.memes.util.extensions.useViewModel
-import exe.weazy.memes.util.handleBottomNavigationBarInsets
+import exe.weazy.memes.util.handleBottomInsets
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         rootViewMain.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        handleBottomNavigationBarInsets(bottomNav)
+        handleBottomInsets(bottomNav)
         viewModel = useViewModel(this, MainViewModel::class.java)
 
         bottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)

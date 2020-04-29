@@ -12,7 +12,7 @@ import exe.weazy.memes.model.Meme
 import exe.weazy.memes.model.UserInfo
 import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.util.extensions.useViewModel
-import exe.weazy.memes.util.handleToolbarInsets
+import exe.weazy.memes.util.handleTopInsets
 import exe.weazy.memes.util.share
 import exe.weazy.memes.util.values.MEME_ID
 import kotlinx.android.synthetic.main.activity_meme.*
@@ -29,7 +29,7 @@ class MemeActivity : AppCompatActivity() {
         rootViewMeme.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        handleToolbarInsets(memeToolbarLayout)
+        handleTopInsets(memeToolbarLayout)
 
         viewModel = useViewModel(this, MemeViewModel::class.java)
 
