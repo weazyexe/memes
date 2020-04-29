@@ -1,12 +1,13 @@
 package exe.weazy.memes.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import exe.weazy.memes.R
-import exe.weazy.memes.ui.main.create.CreateMemeFragment
+import exe.weazy.memes.ui.main.create.CreateMemeActivity
 import exe.weazy.memes.ui.main.memes.MemesFragment
 import exe.weazy.memes.ui.main.profile.ProfileFragment
 import exe.weazy.memes.util.handleBottomNavigationBarInsets
@@ -16,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var memesFragment: MemesFragment
-    private lateinit var createMemeFragment: CreateMemeFragment
     private lateinit var profileFragment: ProfileFragment
     private var active = Fragment()
 
@@ -35,10 +35,8 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.createMemeButton -> {
-                newPosition = 1
-                if (startingPosition != newPosition) {
-                    changeFragment(createMemeFragment)
-                }
+                val intent = Intent(this, CreateMemeActivity::class.java)
+                startActivity(intent)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.profileButton -> {
@@ -69,11 +67,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadFragments() {
         memesFragment = MemesFragment()
-        createMemeFragment = CreateMemeFragment()
         profileFragment = ProfileFragment()
 
         supportFragmentManager.beginTransaction().add(R.id.fragmentLayout, memesFragment).commit()
-        supportFragmentManager.beginTransaction().add(R.id.fragmentLayout, createMemeFragment).hide(createMemeFragment).commit()
         supportFragmentManager.beginTransaction().add(R.id.fragmentLayout, profileFragment).hide(profileFragment).commit()
 
         bottomNav.selectedItemId = R.id.memesButton

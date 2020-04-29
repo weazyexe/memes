@@ -1,6 +1,5 @@
 package exe.weazy.memes.ui.main.memes
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import exe.weazy.memes.di.App
@@ -16,6 +15,9 @@ class MemeViewModel: ViewModel() {
 
     @Inject
     lateinit var memesRepository: MemesRepository
+
+    @Inject
+    lateinit var userStorage: UserStorage
 
     var meme = MutableLiveData<Meme>()
 
@@ -37,9 +39,8 @@ class MemeViewModel: ViewModel() {
         })
     }
 
-    fun getUserInfo(context: Context) {
-        val storage = UserStorage(context)
-        userInfo.postValue(storage.getUserInfo())
+    fun getUserInfo() {
+        userInfo.postValue(userStorage.getUserInfo())
     }
 
     fun likeMeme() {

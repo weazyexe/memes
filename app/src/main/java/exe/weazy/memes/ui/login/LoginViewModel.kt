@@ -1,18 +1,22 @@
 package exe.weazy.memes.ui.login
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import exe.weazy.memes.model.UserInfo
 import exe.weazy.memes.data.AuthRepository
 import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.data.storage.UserStorage
+import exe.weazy.memes.di.App
 import exe.weazy.memes.util.extensions.isValidLogin
 import exe.weazy.memes.util.extensions.isValidPassword
 import exe.weazy.memes.util.extensions.subscribe
 import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
 class LoginViewModel : ViewModel() {
+
+    @Inject
+    lateinit var userStorage: UserStorage
 
     private val repository = AuthRepository()
     private lateinit var signInDisposable: Disposable
@@ -21,6 +25,10 @@ class LoginViewModel : ViewModel() {
 
     lateinit var userInfo: UserInfo
     lateinit var accessToken: String
+
+    init {
+        App.getComponent().injectLoginViewModel(this)
+    }
 
     fun signIn(login: String, password: String) {
         if (validateLogin(login) && validatePassword(password)) {
@@ -45,8 +53,7 @@ class LoginViewModel : ViewModel() {
 
     fun validatePassword(text: String) = text.isValidPassword()
 
-    fun saveUserData(userInfo: UserInfo, token: String, context: Context) {
-        val userStorage = UserStorage(context)
+    fun saveUserData(userInfo: UserInfo, token: String) {
         userStorage.saveUserInfo(userInfo)
         userStorage.saveAccessToken(token)
     }

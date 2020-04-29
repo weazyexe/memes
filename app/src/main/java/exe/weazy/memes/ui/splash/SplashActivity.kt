@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         viewModel = useViewModel(this, MainViewModel::class.java)
 
         Handler().postDelayed({
-            if (viewModel.getUserToken(this) != EMPTY_STRING) {
+            if (viewModel.getUserToken() != EMPTY_STRING) {
                 openMainScreen()
             } else {
                 openLoginScreen()

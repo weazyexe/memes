@@ -36,7 +36,7 @@ class MemeActivity : AppCompatActivity() {
         val memeId = intent.getLongExtra(MEME_ID, 0)
 
         viewModel.getMeme(memeId)
-        viewModel.getUserInfo(this)
+        viewModel.getUserInfo()
 
         initListeners()
         initObservers()

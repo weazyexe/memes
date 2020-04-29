@@ -16,6 +16,9 @@ class MainViewModel: ViewModel() {
     @Inject
     lateinit var memesRepository: MemesRepository
 
+    @Inject
+    lateinit var userStorage: UserStorage
+
     val memes = MutableLiveData<List<Meme>>(listOf())
     val memesState = MutableLiveData<ScreenState>(ScreenState.DEFAULT)
 
@@ -23,8 +26,7 @@ class MainViewModel: ViewModel() {
         App.getComponent().injectMainViewModel(this)
     }
 
-    fun getUserToken(context: Context): String {
-        val userStorage = UserStorage(context)
+    fun getUserToken(): String {
         return userStorage.getAccessToken()
     }
 

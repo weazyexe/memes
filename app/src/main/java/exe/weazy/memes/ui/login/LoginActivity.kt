@@ -81,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
             }
             ScreenState.SUCCESS -> {
                 viewModel.let {
-                    it.saveUserData(it.userInfo, it.accessToken, this)
+                    it.saveUserData(it.userInfo, it.accessToken)
                 }
                 openMainScreen()
             }
