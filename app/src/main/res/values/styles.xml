@@ -9,6 +9,8 @@
         <item name="colorOnBackground">@color/colorWhite</item>
         <item name="colorSurface">@color/colorBlue</item>
         <item name="colorOnSurface">@color/colorLightGrey</item>
+        <item name="colorSecondary">@color/colorBlue</item>
+        <item name="colorOnSecondary">@color/colorLightBlue</item>
 
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
@@ -22,6 +24,15 @@
         <item name="boxBackgroundColor">@color/colorBlueVariant</item>
         <item name="errorTextColor">@color/colorRed</item>
         <item name="errorIconDrawable">@android:color/transparent</item>
+    </style>
+
+    <style name="TextField.Transparent" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="errorTextColor">@color/colorRed</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeColor">@color/colorDarkBlue</item>
+        <item name="hintTextColor">@color/colorDarkBlue</item>
+        <item name="hintAnimationEnabled">false</item>
+        <item name="hintEnabled">false</item>
     </style>
 
     <style name="TextField.Password" parent="TextField">

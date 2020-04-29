@@ -18,4 +18,7 @@
     <string name="memes_empty">Ты чево наделал, где мемы?</string>
     <string name="memes_error">Произошла ошибка при загрузке</string>
     <string name="close">Закрыть</string>
+    <string name="create">Создать</string>
+    <string name="title">Заголовок</string>
+    <string name="description">Описание</string>
 </resources>
