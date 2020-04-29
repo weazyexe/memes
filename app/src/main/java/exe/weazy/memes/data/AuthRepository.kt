@@ -1,8 +1,8 @@
 package exe.weazy.memes.data
 
-import exe.weazy.memes.di.App
 import exe.weazy.memes.data.network.NetworkService
 import exe.weazy.memes.data.network.requests.LoginPasswordRequest
+import exe.weazy.memes.di.App
 import javax.inject.Inject
 
 class AuthRepository {

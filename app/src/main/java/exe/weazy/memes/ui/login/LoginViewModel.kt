@@ -2,11 +2,11 @@ package exe.weazy.memes.ui.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import exe.weazy.memes.model.UserInfo
 import exe.weazy.memes.data.AuthRepository
-import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.data.storage.UserStorage
 import exe.weazy.memes.di.App
+import exe.weazy.memes.model.UserInfo
+import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.util.extensions.isValidLogin
 import exe.weazy.memes.util.extensions.isValidPassword
 import exe.weazy.memes.util.extensions.subscribe

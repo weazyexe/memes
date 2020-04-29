@@ -1,9 +1,9 @@
 package exe.weazy.memes.ui.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import exe.weazy.memes.R
 import exe.weazy.memes.ui.login.LoginActivity
 import exe.weazy.memes.ui.main.MainActivity

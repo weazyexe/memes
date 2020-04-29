@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -28,7 +27,11 @@ class MemesFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: MemesAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_memes, container, false)
     }
 
@@ -60,7 +63,7 @@ class MemesFragment : Fragment() {
             setState(it)
         })
 
-        viewModel.memes.observe(viewLifecycleOwner, Observer {  memes ->
+        viewModel.memes.observe(viewLifecycleOwner, Observer { memes ->
             if (::adapter.isInitialized) {
                 adapter.updateMemes(memes)
             } else {
@@ -79,7 +82,8 @@ class MemesFragment : Fragment() {
 
         memesRecyclerView.itemAnimator = null
         memesRecyclerView.adapter = adapter
-        memesRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        memesRecyclerView.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
     }
 
     private fun setState(state: ScreenState) {

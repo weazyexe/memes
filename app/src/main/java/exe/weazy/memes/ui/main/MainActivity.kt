@@ -10,8 +10,8 @@ import exe.weazy.memes.R
 import exe.weazy.memes.ui.main.create.CreateMemeActivity
 import exe.weazy.memes.ui.main.memes.MemesFragment
 import exe.weazy.memes.ui.main.profile.ProfileFragment
-import exe.weazy.memes.util.handleBottomNavigationBarInsets
 import exe.weazy.memes.util.extensions.useViewModel
+import exe.weazy.memes.util.handleBottomNavigationBarInsets
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
