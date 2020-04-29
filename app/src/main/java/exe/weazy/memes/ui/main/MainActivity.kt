@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             R.id.createMemeButton -> {
                 val intent = Intent(this, CreateMemeActivity::class.java)
                 startActivity(intent)
-                return@OnNavigationItemSelectedListener true
+                return@OnNavigationItemSelectedListener false
             }
             R.id.profileButton -> {
                 newPosition = 2
