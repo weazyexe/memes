@@ -53,6 +53,11 @@ class MemesRepository {
     fun getById(id: Long): Observable<Meme> = memesDao.getById(id)
         .map { it.convert() }
 
+    fun save(meme: Meme) {
+        this.memes.add(meme)
+        memesDao.insert(meme.toEntity())
+    }
+
     fun save(memes: List<Meme>) {
         this.memes = memes as MutableList<Meme>
         memesDao.clearAll()
