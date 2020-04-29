@@ -20,6 +20,7 @@ import exe.weazy.memes.ui.main.memes.MemeActivity
 import exe.weazy.memes.ui.splash.SplashActivity
 import exe.weazy.memes.util.extensions.useViewModel
 import exe.weazy.memes.util.handleToolbarInsets
+import exe.weazy.memes.util.share
 import exe.weazy.memes.util.values.MEME_ID
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -112,7 +113,7 @@ class ProfileFragment: Fragment() {
         adapter = MemesAdapter(
             memes,
             { viewModel.likeMeme(it) },
-            { Toast.makeText(requireContext(), "Share", Toast.LENGTH_SHORT).show() },
+            { share(requireActivity(), it) },
             { openMemeActivity(it) }
         )
 

@@ -14,6 +14,7 @@ import exe.weazy.memes.model.UserInfo
 import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.util.extensions.useViewModel
 import exe.weazy.memes.util.handleToolbarInsets
+import exe.weazy.memes.util.share
 import exe.weazy.memes.util.values.MEME_ID
 import kotlinx.android.synthetic.main.activity_meme.*
 import org.ocpsoft.prettytime.PrettyTime
@@ -48,7 +49,11 @@ class MemeActivity : AppCompatActivity() {
         }
 
         shareButton.setOnClickListener {
-            Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show()
+            val meme = viewModel.meme.value
+            if (meme != null) {
+                share(this, meme)
+            }
+
         }
 
         favoriteButton.setOnClickListener {
