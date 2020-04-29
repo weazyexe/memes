@@ -2,12 +2,14 @@ package exe.weazy.memes.ui.main.create
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import exe.weazy.memes.R
 import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.util.extensions.useViewModel
+import exe.weazy.memes.util.handleToolbarInsets
 import kotlinx.android.synthetic.main.activity_create_meme.*
 
 class CreateMemeActivity : AppCompatActivity() {
@@ -18,7 +20,12 @@ class CreateMemeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_meme)
 
+        rootViewCreate.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
         viewModel = useViewModel(this, CreateMemeViewModel::class.java)
+
+        handleToolbarInsets(toolbarLayout)
 
         initListeners()
         initObservers()
