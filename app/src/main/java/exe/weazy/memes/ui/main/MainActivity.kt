@@ -79,6 +79,8 @@ class MainActivity : AppCompatActivity() {
     private fun changeFragment(fragment : Fragment) {
         supportFragmentManager.beginTransaction().show(fragment).hide(active).commit()
         startingPosition = newPosition
+        active.onPause()
         active = fragment
+        active.onResume()
     }
 }

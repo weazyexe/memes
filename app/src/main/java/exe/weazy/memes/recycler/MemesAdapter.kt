@@ -14,7 +14,7 @@ import exe.weazy.memes.R
 import exe.weazy.memes.model.Meme
 
 class MemesAdapter(
-    var memes: List<Meme>,
+    private var memes: List<Meme>,
     private val onFavoriteClick: (meme: Meme) -> Unit,
     private val onShareClick: (meme: Meme) -> Unit,
     private val onItemClick: (meme: Meme) -> Unit

@@ -22,6 +22,7 @@ class MemesRepository {
     lateinit var service: NetworkService
 
     lateinit var memes: MutableList<Meme>
+    lateinit var localMemes: MutableList<Meme>
 
     private val mergeNetworkAndDb = BiFunction<List<MemesResponse>, List<MemeEntity>, List<Meme>> { response, entities ->
         val result = response.map { meme ->
@@ -40,6 +41,13 @@ class MemesRepository {
         return@BiFunction result.distinctBy { it.id }
     }
 
+    private val getUserMemes = BiFunction<List<MemesResponse>, List<MemeEntity>, List<Meme>> { response, entities ->
+        val fromNetwork = response.map { it.convert() }
+        val fromLocal = entities.map { it.convert() }
+
+        return@BiFunction fromLocal.filter { local -> fromNetwork.none { local.id == it.id } }
+    }
+
     init {
         App.getComponent().injectMemesRepository(this)
     }
@@ -50,11 +58,19 @@ class MemesRepository {
         mergeNetworkAndDb
     )
 
+    fun fetchLocal(): Observable<List<Meme>> = Observable.zip(
+        service.fetchMemes(),
+        memesDao.getAll(),
+        getUserMemes
+    )
+
     fun getById(id: Long): Observable<Meme> = memesDao.getById(id)
         .map { it.convert() }
 
     fun save(meme: Meme) {
         this.memes.add(meme)
+        this.localMemes.add(meme)
+
         memesDao.insert(meme.toEntity())
     }
 
@@ -79,8 +95,20 @@ class MemesRepository {
 
         if (::memes.isInitialized) {
             val index = memes.indexOf(meme)
-            memes[index] = updatedMeme
+
+            if (index != -1) {
+                memes[index] = updatedMeme
+            }
         }
+
+        if (::localMemes.isInitialized) {
+            val index = localMemes.indexOf(meme)
+
+            if (index != -1) {
+                localMemes[index] = updatedMeme
+            }
+        }
+
 
         memesDao.update(updatedMeme.toEntity())
     }

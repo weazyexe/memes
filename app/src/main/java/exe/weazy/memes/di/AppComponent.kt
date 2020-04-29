@@ -7,6 +7,7 @@ import exe.weazy.memes.ui.login.LoginViewModel
 import exe.weazy.memes.ui.main.MainViewModel
 import exe.weazy.memes.ui.main.create.CreateMemeViewModel
 import exe.weazy.memes.ui.main.memes.MemeViewModel
+import exe.weazy.memes.ui.main.profile.ProfileViewModel
 import javax.inject.Singleton
 
 @Singleton
@@ -18,4 +19,5 @@ interface AppComponent {
     fun injectMemeViewModel(memeViewModel: MemeViewModel)
     fun injectCreateMemeViewModel(createMemeViewModel: CreateMemeViewModel)
     fun injectLoginViewModel(loginViewModel: LoginViewModel)
+    fun injectProfileViewModel(profileViewModel: ProfileViewModel)
 }
