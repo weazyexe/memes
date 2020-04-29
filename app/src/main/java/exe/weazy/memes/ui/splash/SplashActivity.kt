@@ -33,10 +33,12 @@ class SplashActivity : AppCompatActivity() {
     private fun openMainScreen() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun openLoginScreen() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }

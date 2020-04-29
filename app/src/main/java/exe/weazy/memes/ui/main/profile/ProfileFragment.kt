@@ -10,12 +10,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import exe.weazy.memes.R
 import exe.weazy.memes.model.Meme
 import exe.weazy.memes.model.UserInfo
 import exe.weazy.memes.recycler.MemesAdapter
 import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.ui.main.memes.MemeActivity
+import exe.weazy.memes.ui.splash.SplashActivity
 import exe.weazy.memes.util.extensions.useViewModel
 import exe.weazy.memes.util.handleToolbarInsets
 import exe.weazy.memes.util.values.MEME_ID
@@ -35,7 +37,7 @@ class ProfileFragment: Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = useViewModel(this, ProfileViewModel::class.java)
-        handleToolbarInsets(profileToolbar)
+        handleToolbarInsets(profileToolbarLayout)
 
         viewModel.getLocalMemes()
         viewModel.getUserInfo()
@@ -50,7 +52,17 @@ class ProfileFragment: Fragment() {
     }
 
     private fun initListeners() {
+        profileToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.about -> {
 
+                }
+                R.id.logout -> {
+                    logoutDialog()
+                }
+            }
+            false
+        }
     }
 
     private fun initObservers() {
@@ -126,5 +138,26 @@ class ProfileFragment: Fragment() {
         val intent = Intent(activity, MemeActivity::class.java)
         intent.putExtra(MEME_ID, meme.id)
         startActivity(intent)
+    }
+
+    private fun logoutDialog() {
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setMessage(R.string.are_you_sure_for_logout)
+            .setPositiveButton(R.string.logout) { _, _ ->
+                viewModel.logout()
+                openLoginActivity()
+            }
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+
+        dialog.show()
+    }
+
+    private fun openLoginActivity() {
+        val intent = Intent(context, SplashActivity::class.java)
+        startActivity(intent)
+        activity?.finish()
     }
 }

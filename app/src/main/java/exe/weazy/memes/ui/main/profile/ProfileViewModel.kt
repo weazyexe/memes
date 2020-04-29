@@ -59,4 +59,8 @@ class ProfileViewModel: ViewModel() {
         memesRepository.like(meme)
         this.memes.postValue(memesRepository.localMemes)
     }
+
+    fun logout() {
+        userStorage.erase()
+    }
 }

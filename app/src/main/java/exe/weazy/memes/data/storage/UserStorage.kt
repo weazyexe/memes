@@ -33,4 +33,13 @@ class UserStorage(context: Context) {
         prefs[USER_LAST_NAME_KEY] = userInfo.lastName
         prefs[USER_DESCRIPTION_KEY] = userInfo.description
     }
+
+    fun erase() {
+        prefs[ACCESS_TOKEN_KEY] = null
+        prefs[USER_ID_KEY] = null
+        prefs[USER_NAME_KEY] = null
+        prefs[USER_FIRST_NAME_KEY] = null
+        prefs[USER_LAST_NAME_KEY] = null
+        prefs[USER_DESCRIPTION_KEY] = null
+    }
 }

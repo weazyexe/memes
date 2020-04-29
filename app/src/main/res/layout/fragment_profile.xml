@@ -7,13 +7,14 @@
     android:background="@color/colorDarkBlue">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/profileToolbar"
+        android:id="@+id/profileToolbarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="0dp"
         android:background="@color/colorDarkBlue">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/profileToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/profile_menu"
