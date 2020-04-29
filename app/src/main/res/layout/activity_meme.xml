@@ -75,6 +75,15 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <TextView
+                    android:id="@+id/usernameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    tools:text="Username"
+                    android:layout_marginStart="118dp"/>
+
                 <ImageButton
                     android:id="@+id/shareButton"
                     android:layout_gravity="center_vertical|end"

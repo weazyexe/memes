@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import exe.weazy.memes.R
 import exe.weazy.memes.model.Meme
+import exe.weazy.memes.model.UserInfo
 import exe.weazy.memes.state.ScreenState
 import exe.weazy.memes.util.extensions.useViewModel
 import exe.weazy.memes.util.handleToolbarInsets
@@ -33,7 +34,9 @@ class MemeActivity : AppCompatActivity() {
         viewModel = useViewModel(this, MemeViewModel::class.java)
 
         val memeId = intent.getLongExtra(MEME_ID, 0)
+
         viewModel.getMeme(memeId)
+        viewModel.getUserInfo(this)
 
         initListeners()
         initObservers()
@@ -60,6 +63,10 @@ class MemeActivity : AppCompatActivity() {
 
         viewModel.meme.observe(this, Observer {
             showMemeInfo(it)
+        })
+
+        viewModel.userInfo.observe(this, Observer {
+            showUserInfo(it)
         })
     }
 
@@ -102,5 +109,9 @@ class MemeActivity : AppCompatActivity() {
             .with(this)
             .load(meme.photoUrl)
             .into(memeImageView)
+    }
+
+    private fun showUserInfo(userInfo: UserInfo) {
+        usernameTextView.text = userInfo.username
     }
 }
