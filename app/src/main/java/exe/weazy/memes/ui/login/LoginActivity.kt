@@ -2,6 +2,7 @@ package exe.weazy.memes.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -37,13 +38,16 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        loginEditText.addTextChangedListener {
-            if (!viewModel.validateLogin(it.toString())) {
-                loginEditTextLayout.error = getString(R.string.field_can_not_be_empty)
-            } else {
-                loginEditTextLayout.error = ""
+        loginEditText.addTextChangedListener(object : PhoneNumberFormattingTextWatcher() {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                super.onTextChanged(s, start, before, count)
+                if (!viewModel.validateLogin(s.toString())) {
+                    loginEditTextLayout.error = getString(R.string.field_can_not_be_empty)
+                } else {
+                    loginEditTextLayout.error = ""
+                }
             }
-        }
+        })
 
         passwordEditText.addTextChangedListener {
             if (!viewModel.validatePassword(it.toString())) {
